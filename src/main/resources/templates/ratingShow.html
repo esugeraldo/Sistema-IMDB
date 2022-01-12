@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema IMDb</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/home">TV shows</a> <p>Bienvenido/a <b><span th:if="${username != null}" th:text="${username}"></span></b></p>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/show/add-show">New Show</a>
+                    </li>
+                    <li class="nav-item" th:if="${username == null}">
+                        <a class="nav-link" href="/signup">Sign Up</a>
+                    </li>
+                    <li class="nav-item" th:if="${username == null}">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item" th:if="${username != null}"> 
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="btn btn-primary">Logout</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="fluid-container">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="mx-2">Título: <span th:text="${show.showTitle}"></span></h2>
+                <h3 class="mx-2">Network: <span th:text="${show.showNetwork}"></span></h3>
+            </div>
+            <div class="col-6">
+                <h1>Rating: <span th:text="${#numbers.formatDecimal(prom, 0, 2)}"></span></h1>
+            </div>
+        </div>
+    </section>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Calificación</th>
+                <th scope="col">Cantidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!--            <tr th:if="${shows.empty}">
+                <td colspan="2">No hay shows registrados</td>
+            </tr> -->
+            <tr>
+                <td th:text="1"></td>
+                <td th:text="${val1}"></td>
+            </tr>
+            <tr>
+                <td th:text="2"></td>
+                <td th:text="${val2}"></td>
+            </tr>
+            <tr>
+                <td th:text="3"></td>
+                <td th:text="${val3}"></td>
+            </tr>
+            <tr>
+                <td th:text="4"></td>
+                <td th:text="${val4}"></td>
+            </tr>
+            <tr>
+                <td th:text="5"></td>
+                <td th:text="${val5}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <form class="m-1 fluid-container" th:action="@{/show/addRating}" th:object="${rating}" method="post">
+        <label for="rating" class="col-4 col-form-label">Selecciona una Calificación</label>
+        <select class="form-select col-4" id="rating" name="value">
+            <option selected th:value="${1}">1</option>
+            <option th:value="${2}">2</option>
+            <option th:value="${3}">3</option>
+            <option th:value="${4}">4</option>
+            <option th:value="${5}">5</option>
+        </select>
+        <div>
+            <input type="hidden" name="showId" th:value="${show.id}">
+            <button type="submit" class="btn btn-primary my-2">Calificar</button>
+        </div>
+
+    </form>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
